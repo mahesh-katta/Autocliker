@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">autoclicker</string>
+    <string name="enable_autoclicker_service">Enable AutoClicker Service</string>
+    <string name="plus">Add</string>
+    <string name="minus">Subtract</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
+    <string name="play">play\n</string>
+    <string name="pause">pause</string>
+    <string name="accessibility_service_description">Service to perform automated clicks</string>
+
+
+
+</resources>
