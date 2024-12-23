@@ -192,7 +192,9 @@ public class ClickOverlayService extends Service {
             int[] location = new int[2];
             circle.getLocationOnScreen(location);
 
-            Intent clickIntent = new Intent("com.example.autoclicker.CLICK_COORDINATES");
+            Intent clickIntent = new Intent();
+            clickIntent.setClassName("com.example.autoclicker", "com.example.autoclicker.ClickReceiver");
+            clickIntent.setAction("com.example.autoclicker.CLICK_COORDINATES");
             clickIntent.putExtra("x", location[0] + circle.getWidth() / 2f);
             clickIntent.putExtra("y", location[1] + circle.getHeight() / 2f);
             sendBroadcast(clickIntent);
