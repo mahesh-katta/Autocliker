@@ -7,7 +7,8 @@
     <string name="save">Save</string>
     <string name="play">play\n</string>
     <string name="pause">pause</string>
-    <string name="accessibility_service_description">Service to perform automated clicks</string>
+    <string name="accessibility_service_label">Auto Clicker Service</string>
+    <string name="accessibility_service_description">Service for automated clicking at specified screen locations</string>
 
 
 

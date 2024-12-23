@@ -5,6 +5,8 @@
     <!-- Permissions -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
 
     <application
         android:allowBackup="true"
@@ -24,9 +26,10 @@
             </intent-filter>
         </activity>
 
-        <!-- Auto Click Accessibility Service -->
+        <!-- AutoClickService for Accessibility -->
         <service
             android:name=".AutoClickService"
+            android:label="@string/accessibility_service_label"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
             android:exported="true">
             <intent-filter>
@@ -37,11 +40,21 @@
                 android:resource="@xml/accessibility_config" />
         </service>
 
-        <!-- Click Overlay Service -->
+        <!-- ClickOverlayService (Foreground Service for AutoClicker) -->
         <service
             android:name=".ClickOverlayService"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" /> <!-- You can specify service types as needed -->
+
+        <!-- Broadcast Receiver to handle click coordinates -->
+        <receiver
+            android:name=".ClickReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.autoclicker.CLICK_COORDINATES" />
+            </intent-filter>
+        </receiver>
 
     </application>
 </manifest>
