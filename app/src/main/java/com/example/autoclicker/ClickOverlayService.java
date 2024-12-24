@@ -174,15 +174,15 @@ public class ClickOverlayService extends Service {
         for (int i = 0; i < circles.size(); i++) {
             View circle = circles.get(i);
             TextView text = (TextView) ((FrameLayout) circle).getChildAt(1);
-            text.setText(String.valueOf(i + 1));
         }
     }
 
     private void startClickSequence() {
+        setCirclesClickThrough(true);
         if (!circles.isEmpty() && !isPlaying) {
             isPlaying = true;
             currentCircleIndex = 0;
-            clickNextCircle();
+            playHandler.postDelayed(this::clickNextCircle, 100); // 100 ms delay
         }
     }
 
@@ -208,6 +208,8 @@ public class ClickOverlayService extends Service {
     }
 
     private void stopClickSequence() {
+        setCirclesClickThrough(false);
+
         isPlaying = false;
         playHandler.removeCallbacksAndMessages(null);
     }
@@ -264,6 +266,18 @@ public class ClickOverlayService extends Service {
                 return false;
             }
         });
+    }
+
+    private void setCirclesClickThrough(boolean clickThrough) {
+        for (View circle : circles) {
+            WindowManager.LayoutParams params = (WindowManager.LayoutParams) circle.getLayoutParams();
+            if (clickThrough) {
+                params.flags |= WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+            } else {
+                params.flags &= ~WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+            }
+            windowManager.updateViewLayout(circle, params);
+        }
     }
 
     @Override
